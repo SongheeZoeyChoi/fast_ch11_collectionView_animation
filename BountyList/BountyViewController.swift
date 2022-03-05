@@ -33,7 +33,6 @@ class BountyViewController: UIViewController, UICollectionViewDataSource, UIColl
         if segue.identifier == "showDetail" {
             let vc = segue.destination as? DetailViewController
             if let index = sender as? Int {
-
                 let bountyInfo = viewModel.bountyInfo(at: index)
                 vc?.viewModel.update(model: bountyInfo)
             }
@@ -64,7 +63,6 @@ class BountyViewController: UIViewController, UICollectionViewDataSource, UIColl
         performSegue(withIdentifier: "showDetail", sender: indexPath.item)
     }
     
-    
     // UICollectionViewDelegateFlowLayout
     // cell size?? : 목표: 다양한 디바이스에서 일관적인 디자인을 보여주기위해
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -75,29 +73,6 @@ class BountyViewController: UIViewController, UICollectionViewDataSource, UIColl
         let height : CGFloat = width * 10/7 + textAreaHeight
         return CGSize(width: width, height: height)
     }
-    
-//    // UITableViewDataSource
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return viewModel.numOfBountyInfoList
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else {
-//            return UITableViewCell()
-//        }
-//
-//        let bountyInfo = viewModel.bountyInfo(at: indexPath.row)
-//        cell.update(info: bountyInfo)
-//        return cell
-//    }
-//
-//    // UITableViewDelegate
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("--> \(indexPath.row)")
-//        performSegue(withIdentifier: "showDetail", sender: indexPath.row)
-//    }
-    
-    
 }
 
 class GridCell: UICollectionViewCell {
