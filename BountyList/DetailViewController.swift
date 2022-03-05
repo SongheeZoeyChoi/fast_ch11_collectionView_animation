@@ -31,11 +31,54 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var bountyLabel: UILabel!
 
+    @IBOutlet weak var nameLabelCenterX: NSLayoutConstraint!
+    @IBOutlet weak var bountyLabelCenterX: NSLayoutConstraint!
+    
     let viewModel = DetailViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
+        prepareAnimation()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        showAnimation()
+    }
+    
+    func prepareAnimation() {
+        nameLabelCenterX.constant = view.bounds.width
+        bountyLabelCenterX.constant = view.bounds.width
+    }
+    
+    func showAnimation() {
+        nameLabelCenterX.constant = 0
+        bountyLabelCenterX.constant = 0
+        
+        // 오른쪽에서 왼쪽으로
+        UIView.animate(withDuration: 0.3,
+                       delay: 0.1,
+                       options: .curveEaseIn,
+                       animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
+        // +튕기면서(usingSpringWithDamping)
+        UIView.animate(withDuration: 0.3,
+                       delay: 0.1,
+                       usingSpringWithDamping: 0.6,
+                       initialSpringVelocity: 2,
+                       options: .allowUserInteraction,
+                       animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
+        // 이미지 회전 애니메이션
+        UIView.transition(with: imgView,
+                          duration: 0.5,
+                          options: .transitionFlipFromRight,
+                          animations: nil,
+                          completion: nil)
     }
     
     func updateUI() {
